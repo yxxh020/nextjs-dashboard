@@ -1,4 +1,6 @@
-import SideNav from '@/src/app/ui/dashboard/sidenav';
+import SideNav from '@/app/ui/dashboard/sidenav';
+
+// export const experimental_ppr = true; //next15 partial prerendering static shell 만들기 위함
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

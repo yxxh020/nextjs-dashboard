@@ -1,7 +1,7 @@
-import CardWrapper, { Card } from '@/src/app/ui/dashboard/cards';
-import RevenueChart from '@/src/app/ui/dashboard/revenue-chart';
-import LatestInvoices from '@/src/app/ui/dashboard/latest-invoices';
-import { lusitana } from '@/src/app/ui/fonts';
+import CardWrapper, { Card } from '@/app/ui/dashboard/cards';
+import RevenueChart from '@/app/ui/dashboard/revenue-chart';
+import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
+import { lusitana } from '@/app/ui/fonts';
 import {
   fetchCardData,
   fetchLatestInvoices,
@@ -12,9 +12,10 @@ import {
   CardsSkeleton,
   LatestInvoicesSkeleton,
   RevenueChartSkeleton,
-} from '@/src/app/ui/skeletons';
+} from '@/app/ui/skeletons';
 
 export default async function Page() {
+  // Suspence 사용해서 fallback component를 로딩할때 보여주기 위해 함수를 각 컴포넌트 안으로 옮김.
   //async and await to fetch data
   // const revenue = await fetchRevenue();
   // const latestInvoices = await fetchLatestInvoices();
@@ -24,7 +25,7 @@ export default async function Page() {
   //   totalPaidInvoices,
   //   totalPendingInvoices,
   // } = await fetchCardData();
-
+ 
   return (
     <main>
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>

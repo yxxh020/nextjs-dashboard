@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import { checkUserExists } from '../services/auth';
 
+
+
 export const loginIdSchema = () =>
   z
     .string()
@@ -33,7 +35,7 @@ export const phoneSchema = () =>
     .refine((val) => val.length === 11, {
       message: '전화번호 11자리를 입력해 주세요',
     });
-
+ 
 export const passwordSchema = () =>
   z
     .string()
