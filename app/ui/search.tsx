@@ -5,8 +5,10 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 
 export default function Search({ placeholder }: { placeholder: string }) {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
+  const searchParams = useSearchParams(); //client component 라서 hook 사용가능
+
+  //to update the URL
+  const pathname = usePathname(); //current path
   const { replace } = useRouter();
 
   //wrap the contents of handleSearch to run code once the user stop typing 0.3sec
@@ -17,10 +19,10 @@ export default function Search({ placeholder }: { placeholder: string }) {
     if (term) {
       params.set('query', term);
     } else {
-      //If the input is empty delete query 
+      //If the input is empty delete query
       params.delete('query');
     }
-    replace(`${pathname}?${params.toString()}`);
+    replace(`${pathname}?${params.toString()}`); //url에 query string 추가
   }, 300);
 
   return (
@@ -34,7 +36,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
         onChange={(e) => {
           handleSearch(e.target.value);
         }}
-        defaultValue={searchParams.get('query')?.toString()}
+        defaultValue={searchParams.get('query')?.toString()} //read searchParams to set the default
       />
       <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
     </div>
