@@ -13,6 +13,7 @@ const FormSchema = z.object({
   date: z.string(),
 });
 
+//FormSchema에서 id,date 제외한 데이터만
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 
 export async function createInvoice(formData: FormData) {
@@ -31,6 +32,32 @@ export async function createInvoice(formData: FormData) {
   VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
 `;
 
+  revalidatePath('/dashboard/invoices'); // clear client cache and make a new server request
+  redirect('/dashboard/invoices'); //redirect the user to the invoice page
+}
+
+const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+
+export async function updateInvoice(id: string, formData: FormData) {
+  const { customerId, amount, status } = UpdateInvoice.parse({
+    customerId: formData.get('customerId'),
+    amount: formData.get('amount'),
+    status: formData.get('status'),
+  });
+
+  const amountInCents = amount * 100;
+
+  await sql`
+    UPDATE invoices
+    SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
+    WHERE id = ${id}
+  `;
+
   revalidatePath('/dashboard/invoices');
   redirect('/dashboard/invoices');
+}
+
+export async function deleteInvoice(id: string) {
+  await sql`DELETE FROM invoices WHERE id = ${id}`;
+  revalidatePath('/dashboard/invoices');
 }
