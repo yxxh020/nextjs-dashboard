@@ -13,6 +13,11 @@ import {
   LatestInvoicesSkeleton,
   RevenueChartSkeleton,
 } from '@/app/ui/skeletons';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Dashboard',
+};
 
 export default async function Page() {
   // Suspence 사용해서 fallback component를 로딩할때 보여주기 위해 함수를 각 컴포넌트 안으로 옮김.
@@ -25,7 +30,7 @@ export default async function Page() {
   //   totalPaidInvoices,
   //   totalPendingInvoices,
   // } = await fetchCardData();
- 
+
   return (
     <main>
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
